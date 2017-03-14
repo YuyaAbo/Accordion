@@ -2,12 +2,12 @@ import UIKit
 
 class AccordionViewController: UITableViewController {
     
-    private var extended: Bool = false
+    private var isOpened: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.sectionHeaderHeight = 50
+        tableView.sectionHeaderHeight = 30
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -18,7 +18,7 @@ class AccordionViewController: UITableViewController {
         }
         cell!.textLabel!.text = "ヘッダー"
         cell!.section = section
-        cell!.setExpanded(expanded: extended)
+        cell!.updateImage(isOpened: isOpened)
         
         return cell
     }
@@ -27,26 +27,23 @@ class AccordionViewController: UITableViewController {
         guard let cell = gestureRecognizer.view as? AccordionHeaderFooterView else {
             return
         }
-        let extended = self.extended
-        self.extended = !extended
+        let isOpened = self.isOpened
+        self.isOpened = !isOpened
         tableView.reloadSections(IndexSet([cell.section]), with: .bottom)
     }
     
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return extended ? 1 : 0
+        return isOpened ? 1 : 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        return cell
+        return tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
     }
     
 }

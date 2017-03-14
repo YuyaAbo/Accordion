@@ -19,8 +19,8 @@ class AccordionHeaderFooterView: UITableViewHeaderFooterView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setExpanded(expanded: Bool) {
-        arrow.image = UIImage(named: expanded ? "ArrowUp" : "ArrowDown")
+    func updateImage(isOpened: Bool) {
+        arrow.image = UIImage(named: isOpened ? "ArrowUp" : "ArrowDown")
     }
     
 }
